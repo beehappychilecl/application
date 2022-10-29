@@ -1,0 +1,13 @@
+# common
+.idea/
+*.iml
+*.log
+*.tmp
+
+# java
+javadoc/
+target/
+
+# javascript
+node_modules/
+*lock*
