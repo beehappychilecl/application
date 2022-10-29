@@ -1,8 +1,11 @@
 {
     "name": "beehappychile",
     "main": "app.js",
+    "type": "module",
     "dependencies": {
-        "express": "^4.16.3"
+        "express": "^4.16.3",
+        "fs": "^0.0.1-security",
+        "js-yaml": "^4.1.0"
     },
     "scripts": {
         "start": "node app.js"

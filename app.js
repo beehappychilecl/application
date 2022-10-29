@@ -1,11 +1,14 @@
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 3001;
+import express from 'express';
+import fs from 'fs';
+import jsYaml from 'js-yaml';
 
-app.get("/", (req, res) => res.type('html').send(html));
+const app = express ();
+const config = jsYaml.load (fs.readFileSync ('./config.yml', 'utf8'), {});
+const port = process.env.PORT || config.server.port;
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.get ("/", (req, res) => res.type ('html').send (html));
 
+app.listen (port, () => console.log (`BeeHappyChile started on port: ${port}!`));
 
 const html = `
 <!DOCTYPE html>
@@ -52,7 +55,7 @@ const html = `
   </head>
   <body>
     <section>
-      Hello from Render!
+      Hello from BeeHappy Chile!
     </section>
   </body>
 </html>
