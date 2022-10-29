@@ -6,9 +6,17 @@ const app = express ();
 const config = jsYaml.load (fs.readFileSync ('./config.yml', 'utf8'), {});
 const port = process.env.PORT || config.server.port;
 
-app.get ("/", (req, res) => res.type ('html').send (html));
+app.get ('/', (request, response) => {
 
-app.listen (port, () => console.log (`BeeHappyChile started on port: ${port}!`));
+    response.type ('html').send (html);
+
+});
+
+app.listen (port, () => {
+
+    console.log (''.concat ('BeeHappyChile started on port: ', port));
+
+});
 
 const html = `
 <!DOCTYPE html>
