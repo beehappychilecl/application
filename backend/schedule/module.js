@@ -1,4 +1,7 @@
-const indicators = async (request, response) => {
+import axios from "axios";
+import constants from '../toolkit/constants.js';
+
+const indicators = async function () {
 
     console.log ('function indicators');
 
@@ -6,15 +9,15 @@ const indicators = async (request, response) => {
 
 };
 
-const wakeup = async (request, response) => {
+const uptime = async function () {
 
-    console.log ('function wakeup');
+    let result = await axios.get (constants.service_uptime);
 
-    return null;
+    return result.data;
 
 };
 
 export default {
     indicators,
-    wakeup
+    uptime
 };
