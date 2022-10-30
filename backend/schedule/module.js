@@ -1,13 +1,20 @@
+const indicators = async (request, response) => {
 
+    console.log ('function indicators');
 
+    return null;
 
+};
 
-const test = async (request, response) => {
+const wakeup = async (request, response) => {
 
-console.log('module');
+    console.log ('function wakeup');
+
+    return null;
 
 };
 
 export default {
-    test
+    indicators,
+    wakeup
 };
