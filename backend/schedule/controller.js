@@ -6,6 +6,7 @@ async function indicators () {
 
     let result = module.indicators ();
 
+    console.log (result);
     console.log ('Running indicators task any times per day');
 
 }
@@ -15,7 +16,6 @@ async function uptime () {
     let result = await module.uptime ();
 
     console.log (result);
-
     console.log ('Running wakeup task every 10 minutes');
 
 }

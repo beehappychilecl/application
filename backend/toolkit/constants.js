@@ -1,4 +1,4 @@
-const scheduler_indicators = '* 0 0,6,12,18 * * *';
+const scheduler_indicators = '0 0 0,6,12,18 * * *';
 const scheduler_uptime = '0 */10 * * * *';
 const server_port = 8080;
 //const service_uptime = 'http://127.0.0.1:8080/system/uptime';
