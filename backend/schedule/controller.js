@@ -1,25 +1,28 @@
+import express from "express";
 import nodeCron from 'node-cron';
+
 import constants from '../toolkit/constants.js';
 import module from '../schedule/module.js';
 
-async function indicators () {
+const router = express.Router ();
 
-    let result = module.indicators ();
+const indicators = async () => {
 
-    console.log (result);
+    await module.indicators ();
+
     console.log ('Running indicators task any times per day');
 
 }
 
-async function uptime () {
+const uptime = async () => {
 
-    let result = await module.uptime ();
+    await module.uptime ();
 
-    console.log (result);
     console.log ('Running wakeup task every 10 minutes');
 
 }
 
 nodeCron.schedule (constants.scheduler_indicators, indicators);
-
 nodeCron.schedule (constants.scheduler_uptime, uptime);
+
+export default router;

@@ -1,4 +1,4 @@
-const uptime = async function (request, response) {
+const uptime = async (request, response) => {
 
     let uptime = process.uptime ();
 
