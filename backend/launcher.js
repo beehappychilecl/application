@@ -1,28 +1,46 @@
-import cors from 'cors';
 import ejs from 'ejs';
 import express from 'express';
 
-import constants from './toolkit/constants.js';
-import schedule from './schedule/controller.js';
-import system from './system/controller.js';
-import views from './views/controller.js';
+import PropertiesToolkit from './toolkit/PropertiesToolkit.js'
+import ScheduleController from './schedule/ScheduleController.js'
+import WebsiteController from './website/WebsiteController.js';
 
-const app = express ();
+class Launcher {
 
-app.set ('view engine', ejs);
-app.use (cors ());
-app.use (express.json ())
-app.use (express.static ('frontend'));
-app.use (express.urlencoded ({extended: true}));
+    async run () {
 
-app.use (schedule);
-app.use (system);
-app.use (views);
+        let app = express ();
 
-const port = process.env.PORT || constants.server_port;
+        app.set ('view engine', ejs);
+        app.use (express.json ())
+        app.use (express.static ('frontend'));
+        app.use (express.urlencoded ({extended: true}));
+        app.use (ScheduleController);
+        app.use (WebsiteController);
 
-app.listen (port, () => {
+        let propertiesToolkit = new PropertiesToolkit ();
 
-    console.log (''.concat ('BeeHappy Chile started on port: ', port));
+        let property = await propertiesToolkit.get ('server.port');
+        property = process.env.PORT || property;
 
-});
+        app.listen (property, () => {
+
+            console.log ('BeeHappy started on port: ' + property.toString ());
+
+        });
+
+        /*
+                let documentToolkit = new DocumentToolkit ();
+                let r = await documentToolkit.add ();
+                console.log ('******************+');
+                console.log (r);
+                console.log ('******************+');
+        */
+
+    }
+
+}
+
+let launcher = new Launcher ();
+
+await launcher.run ();

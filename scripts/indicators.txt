@@ -1,0 +1,13 @@
+/* * * * * * * * * * * */
+/* D E F I N I T I O N */
+/* * * * * * * * * * * */
+
+indicators/definition/dat_dollars.sql
+indicators/definition/dat_euros.sql
+indicators/definition/dat_foment_units.sql
+indicators/definition/dat_monthly_tax_units.sql
+
+indicators/definition/indicator_set_dollars.sql
+indicators/definition/indicator_set_euros.sql
+indicators/definition/indicator_set_foment_units.sql
+indicators/definition/indicator_set_monthly_tax_units.sql

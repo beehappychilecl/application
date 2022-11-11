@@ -1,0 +1,31 @@
+truncate dat_relations cascade;
+
+insert into dat_relations (boo_dependency, boo_registered, idf_intention, txt_function) values
+(false, false, 1010, null),
+(false, false, 1020, null),
+(true, false, 1030, 'response_get_options_by_profile'),
+(false, false, 1040, null),
+(true, false, 1050, 'response_get_options_by_profile'),
+(true, false, 1060, 'response_get_options_by_profile'),
+(false, true, 2010, 'response_get_profile_information'),
+(false, false, 2020, 'response_get_sales_information'),
+(false, false, 2030, 'response_get_support_information'),
+(true, true, 3010, 'response_get_organizations_by_user'),
+(true, true, 3020, 'response_get_executives_by_community'),
+(false, true, 3030, 'response_get_majordomos_by_community'),
+(true, true, 3040, 'response_get_concierges_by_workshift'),
+(true, true, 3050, 'response_get_novelties_by_community'),
+(true, true, 4010, 'response_get_common_expenses_status'),
+(false, true, 5010, null),
+(false, false, 8010, null),
+(false, false, 8020, null),
+(false, false, 8030, null),
+(false, false, 8040, null),
+(false, false, 8050, null),
+(false, false, 8060, null),
+(false, false, 8070, null),
+(false, false, 8080, null),
+(false, false, 8090, null),
+(false, true, 9010, 'response_get_about_me'),
+(false, true, 9020, null)
+;
