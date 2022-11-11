@@ -25,3 +25,5 @@ scheduler:
     token: 8868f4356814969f5c63d9dc122e95bb12b10e61
 server:
   port: 8080
+system:
+  version: 2.101122

@@ -37,7 +37,11 @@ class WebsiteController {
 
     async landing (request, response) {
 
-        response.render ('pages/landing/landing.ejs', {'txt_version': '2.221110'});
+        let propertiesToolkit = new PropertiesToolkit ()
+
+        let version = await propertiesToolkit.get ('system.version');
+
+        response.render ('pages/landing/landing.ejs', {'txt_version': version});
 
     }
 
