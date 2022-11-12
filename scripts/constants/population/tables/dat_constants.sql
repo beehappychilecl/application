@@ -1,6 +1,7 @@
 truncate dat_constants cascade;
 
 insert into dat_constants (idf_constant, txt_key, txt_value) values
+(1000, 'application_version', '2.121122'),
 (1001, 'website_landing', 'https://beehappychile.cl'),
 (1002, 'website_staff', 'https://beehappychile.cl/staff/'),
 (1003, 'timezone_difference', '-3'),

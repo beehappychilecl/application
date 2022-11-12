@@ -69,9 +69,8 @@ class DatabaseToolkit {
 
         try {
 
-            //pool.query ("select * from " + procedure + " ($1)", [params], function (error, result) {
-            result = await postgresql.query ('select now()', null);
-            result = result.rows[0];
+            result = await postgresql.query ("select * from " + procedure + " ($1)", [params.all ()]);
+            result = result.rows[0][procedure];
 
         } catch (error) {
 

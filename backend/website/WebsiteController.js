@@ -80,20 +80,12 @@ class WebsiteController {
 
         let websiteModule = new WebsiteModule ();
 
-        await websiteModule.staff (params);
+        let result = await websiteModule.staff (params);
+        console.log('********************++');
+        console.log(result.outgoing);
+        console.log('********************++');
 
-        let xxx = {
-            'txt_icon': 'bx-rocket',
-            'txt_full_name': 'Alexis Bacian',
-            'txt_profile': 'Director Ejecutivo',
-            'txt_mail': 'alexis@beehappy.ee',
-            'txt_phone_1': '+56 9 9122-0195',
-            'txt_phone_2': '56991220195',
-            'txt_first_name': 'alexis',
-            'txt_version': '123456'
-        }
-
-        response.render ('pages/staff/staff.ejs', xxx);
+        response.render ('pages/staff/staff.ejs', result.outgoing);
 
     }
 

@@ -2,18 +2,18 @@
 /* D E F I N I T I O N */
 /* * * * * * * * * * * */
 
-constants/definition/dat_constants.sql
-constants/definition/dat_countries.sql
-constants/definition/dat_regions.sql
-constants/definition/dat_provinces.sql
-constants/definition/dat_communes.sql
+constants/definition/tables/dat_constants.sql
+constants/definition/tables/dat_countries.sql
+constants/definition/tables/dat_regions.sql
+constants/definition/tables/dat_provinces.sql
+constants/definition/tables/dat_communes.sql
 
 /* * * * * * * * * * * */
 /* P O P U L A T I O N */
 /* * * * * * * * * * * */
 
-constants/population/dat_constants.sql
-constants/population/dat_countries.sql
-constants/population/dat_regions.sql
-constants/population/dat_provinces.sql
-constants/population/dat_communes.sql
+constants/population/tables/dat_constants.sql
+constants/population/tables/dat_countries.sql
+constants/population/tables/dat_regions.sql
+constants/population/tables/dat_provinces.sql
+constants/population/tables/dat_communes.sql
