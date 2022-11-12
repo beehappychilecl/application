@@ -1,4 +1,4 @@
-import ResponseToolkit from "../toolkit/ResponseToolkit.js";
+import ResponseToolkit from '../toolkit/ResponseToolkit.js';
 import ServiceToolkit from '../toolkit/ServiceToolkit.js';
 
 class ScheduleModule {

@@ -4,6 +4,7 @@ import JsonToolkit from '../toolkit/JsonToolkit.js';
 import PropertiesToolkit from '../toolkit/PropertiesToolkit.js';
 import RebuildController from '../rebuild/RebuildController.js';
 import ScheduleModule from '../schedule/ScheduleModule.js';
+import TraceToolkit from '../toolkit/TraceToolkit.js';
 import WebsiteModule from '../website/WebsiteModule.js';
 
 class WebsiteController {
@@ -37,30 +38,27 @@ class WebsiteController {
 
     async landing (request, response) {
 
+        console.log (request.headers['user-agent']);
+
+        let traceToolkit = new TraceToolkit ();
+
+        await traceToolkit.initialize ();
+
         let propertiesToolkit = new PropertiesToolkit ()
 
         let version = await propertiesToolkit.get ('system.version');
 
         response.render ('pages/landing/landing.ejs', {'txt_version': version});
 
-    }
-
-    async member (request, response) {
-
-        let params = new JsonToolkit ();
-
-        params.add ('txt_member', request.params.member);
-
-        let websiteModule = new WebsiteModule ();
-
-        await websiteModule.staff (params);
-
-        console.log (request.params.member);
-        response.render ('pages/landing/landing.ejs', {'txt_version': request.params.member});
+        await traceToolkit.finalize ();
 
     }
 
     async rebuild (request, response) {
+
+        let traceToolkit = new TraceToolkit ();
+
+        await traceToolkit.initialize ();
 
         let rebuildController = new RebuildController ();
 
@@ -69,6 +67,59 @@ class WebsiteController {
         console.log ('111');
         response.render ('pages/landing/landing.ejs', {'txt_version': 'rebuild'});
         console.log ('222');
+
+        await traceToolkit.finalize ();
+
+    }
+
+    async staff (request, response) {
+
+        let params = new JsonToolkit ();
+
+        params.add ('txt_first_name', request.params.txt_first_name);
+
+        let websiteModule = new WebsiteModule ();
+
+        await websiteModule.staff (params);
+
+        let xxx = {
+            'txt_icon': 'bx-rocket',
+            'txt_full_name': 'Alexis Bacian',
+            'txt_profile': 'Director Ejecutivo',
+            'txt_mail': 'alexis@beehappy.ee',
+            'txt_phone_1': '+56 9 9122-0195',
+            'txt_phone_2': '56991220195',
+            'txt_first_name': 'alexis',
+            'txt_version': '123456'
+        }
+
+        response.render ('pages/staff/staff.ejs', xxx);
+
+    }
+
+    async vcard (request, response) {
+
+        let params = new JsonToolkit ();
+
+        params.add ('txt_first_name', request.params.txt_first_name);
+
+        let websiteModule = new WebsiteModule ();
+
+        await websiteModule.staff (params);
+
+        let xxx = 'BEGIN:VCARD\n' +
+            'VERSION:3.0\n' +
+            'N:Alexis;Bacian;;;\n' +
+            'FN:Alexis Bacian\n' +
+            'TITLE:Director Ejecutivo\n' +
+            'ORG:BeeHappy®\n' +
+            'TEL;TYPE=WORK,VOICE:56991220195\n' +
+            'EMAIL:alexis@beehappy.ee\n' +
+            'URL;TYPE=WORK:https://beehappy.ee/staff/alexis\n' +
+            'END:VCARD\n';
+
+        response.setHeader ('content-type', 'text/x-vcard');
+        response.send (xxx);
 
     }
 
@@ -79,7 +130,8 @@ const router = express.Router ();
 let websiteController = new WebsiteController ();
 
 router.get ('/', await websiteController.landing);
-router.get ('/staff/:member', await websiteController.member);
+router.get ('/staff/:txt_first_name', await websiteController.staff);
+router.get ('/staff/:txt_first_name/vcard', await websiteController.vcard);
 router.get ('/system/awake', await websiteController.awake);
 router.get ('/system/rebuild', await websiteController.rebuild);
 

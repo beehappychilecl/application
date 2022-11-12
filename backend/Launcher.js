@@ -2,7 +2,7 @@ import ejs from 'ejs';
 import express from 'express';
 
 import PropertiesToolkit from './toolkit/PropertiesToolkit.js'
-import ScheduleController from './schedule/ScheduleController.js'
+import ScheduleController from './schedule/ScheduleController.js';
 import WebsiteController from './website/WebsiteController.js';
 
 class Launcher {
@@ -28,14 +28,6 @@ class Launcher {
             console.log ('BeeHappy started on port: ' + property.toString ());
 
         });
-
-        /*
-                let documentToolkit = new DocumentToolkit ();
-                let r = await documentToolkit.add ();
-                console.log ('******************+');
-                console.log (r);
-                console.log ('******************+');
-        */
 
     }
 

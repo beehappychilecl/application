@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-import JsonToolkit from "../toolkit/JsonToolkit.js";
-import ResponseToolkit from "../toolkit/ResponseToolkit.js";
+import JsonToolkit from '../toolkit/JsonToolkit.js';
+import ResponseToolkit from '../toolkit/ResponseToolkit.js';
 
 class ServiceToolkit {
 
@@ -23,13 +23,13 @@ class ServiceToolkit {
 
         let suffix;
 
-        if (config.get () === '{}') {
+        if (config.all () === '{}') {
 
             suffix = null;
 
         } else {
 
-            suffix = config.get ();
+            suffix = config.all ();
 
         }
 
@@ -72,7 +72,7 @@ class ServiceToolkit {
 
         try {
 
-            result = await axios.post (host, prefix.get (), suffix.get ());
+            result = await axios.post (host, prefix.get (), suffix.all ());
             result = result.data;
 
         } catch (error) {

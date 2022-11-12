@@ -14,9 +14,15 @@ class JsonToolkit {
 
     }
 
-    get () {
+    all () {
 
         return this.jsonObject;
+
+    }
+
+    get (key) {
+
+        return this.jsonObject[key];
 
     }
 

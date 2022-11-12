@@ -1,7 +1,7 @@
-import JsonToolkit from "../toolkit/JsonToolkit.js";
-import PropertiesToolkit from '../toolkit/PropertiesToolkit.js'
-import ResponseToolkit from "../toolkit/ResponseToolkit.js";
-import ServiceToolkit from "../toolkit/ServiceToolkit.js";
+import JsonToolkit from '../toolkit/JsonToolkit.js';
+import PropertiesToolkit from '../toolkit/PropertiesToolkit.js';
+import ResponseToolkit from '../toolkit/ResponseToolkit.js';
+import ServiceToolkit from '../toolkit/ServiceToolkit.js';
 
 class DocumentToolkit {
 

@@ -1,0 +1,12 @@
+definition/tables/organization/dat_profiles.sql
+definition/tables/organization/dat_organizations.sql
+definition/tables/organization/dat_users.sql
+definition/tables/organization/dat_organizations_users.sql
+definition/tables/organization/dat_profiles_users.sql
+
+
+population/tables/organization/dat_profiles.sql
+population/tables/organization/dat_organizations.sql
+population/tables/organization/dat_users.sql
+population/tables/organization/dat_organizations_users.sql
+population/tables/organization/dat_profiles_users.sql

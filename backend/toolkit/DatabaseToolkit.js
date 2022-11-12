@@ -1,7 +1,7 @@
 import pg from 'pg';
 
-import PropertiesToolkit from '../toolkit/PropertiesToolkit.js'
-import ResponseToolkit from "../toolkit/ResponseToolkit.js";
+import PropertiesToolkit from '../toolkit/PropertiesToolkit.js';
+import ResponseToolkit from '../toolkit/ResponseToolkit.js';
 
 class DatabaseToolkit {
 

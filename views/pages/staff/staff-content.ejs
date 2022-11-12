@@ -1,0 +1,53 @@
+        <section id="staff" class="staff">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6 col-lg-6 col-md-8 d-flex align-items-stretch mt-4 mt-md-0">
+                        <div class="icon-box iconbox-orange">
+                            <div class="icon selected">
+                                <i class="bx <%= txt_icon %>"></i>
+                            </div>
+                            <h4><%= txt_full_name %></h4>
+                            <h5><%= txt_profile %></h5>
+                            <h5>&nbsp;</h5>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="info-box mt-4">
+                                        <a href="mailto:<%= txt_mail %>">
+                                            <i class="bx bx-envelope"></i>
+                                            <h3>Escríbeme</h3>
+                                            <p text="<%= txt_mail %>"></p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-box mt-4">
+                                        <a href="tel:<%= txt_phone_2 %>">
+                                            <i class="bx bx-phone-call"></i>
+                                            <h3>Llámame</h3>
+                                            <p><%= txt_phone_1 %></p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="info-box mt-4">
+                                        <a href="https://api.whatsapp.com/send?phone=<%= txt_phone_2 %>">
+                                            <i class="bx bxl-whatsapp"></i>
+                                            <h3>Mensajéame</h3>
+                                            <p><%= txt_phone_1 %></p>
+                                        </a>
+                                    </div>
+                                </div>
+                                <h5>&nbsp;</h5>
+                                <div class="col-12">
+                                    <div class="info-box mt-4">
+                                        <a href="/staff/<%= txt_first_name %>/vcard">
+                                            <span class="staff-btn">Descargar VCard</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>

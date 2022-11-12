@@ -8,13 +8,13 @@ database:
 document:
   collection: listingsAndReviews
   database: sample_airbnb
-  datasource: Cluster1
+  datasource: BeeHappyCluster
   host: https://data.mongodb-api.com/app/data-fvtmd/endpoint/data/v1/
   token: SAjaVXEyjFnCP9fr7Vp3xEqXZgogfqdFwpbF5Eyf7OZwmTexQOa6A2bx6EW3goIF
 scheduler:
   awake:
-    cron: 0 */10 * * * *
-    host: https://beehappychile.cl/system/awake
+    cron: 0 0,10,20,30,40,50 * * * *
+    host: https://beehappy.ee/system/awake
     #host: http://127.0.0.1:8080/system/awake
   indicators:
     cron: 0 0 0,6,12,18 * * *
