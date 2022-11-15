@@ -1,4 +1,4 @@
-class ResponseToolkit {
+class ResponseTool {
 
     static DATABASE_EXCEPTION () {
 
@@ -79,4 +79,4 @@ class ResponseToolkit {
 
 }
 
-export default ResponseToolkit;
+export default ResponseTool;

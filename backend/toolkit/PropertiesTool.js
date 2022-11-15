@@ -1,7 +1,7 @@
 import fs from 'fs';
 import jsYaml from 'js-yaml';
 
-class PropertiesToolkit {
+class PropertiesTool {
 
     async get (property) {
 
@@ -30,4 +30,4 @@ class PropertiesToolkit {
 
 }
 
-export default PropertiesToolkit;
+export default PropertiesTool;

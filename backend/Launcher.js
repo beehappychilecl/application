@@ -1,7 +1,7 @@
 import ejs from 'ejs';
 import express from 'express';
 
-import PropertiesToolkit from './toolkit/PropertiesToolkit.js'
+import PropertiesTool from './toolkit/PropertiesTool.js'
 import ScheduleController from './schedule/ScheduleController.js';
 import WebsiteController from './website/WebsiteController.js';
 
@@ -18,9 +18,9 @@ class Launcher {
         app.use (ScheduleController);
         app.use (WebsiteController);
 
-        let propertiesToolkit = new PropertiesToolkit ();
+        let propertiesTool = new PropertiesTool ();
 
-        let property = await propertiesToolkit.get ('server.port');
+        let property = await propertiesTool.get ('server.port');
         property = process.env.PORT || property;
 
         app.listen (property, () => {

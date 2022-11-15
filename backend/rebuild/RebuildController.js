@@ -1,7 +1,7 @@
 import fs from 'fs';
 
-import DatabaseToolkit from '../toolkit/DatabaseToolkit.js';
-import TraceToolkit from '../toolkit/TraceToolkit.js';
+import DatabaseTool from '../toolkit/DatabaseTool.js';
+import LogTool from '../toolkit/LogTool.js';
 
 class RebuildController {
 
@@ -9,7 +9,7 @@ class RebuildController {
 
     async run () {
 
-        let traceToolkit = new TraceToolkit ();
+        let traceTool = new LogTool ();
 
         await this.readFile (this.path + '/setup.txt');
         await this.readFile (this.path + '/constants.txt');
@@ -21,7 +21,7 @@ class RebuildController {
 
     async readFile (file) {
 
-        let traceToolkit = new TraceToolkit ();
+        let traceTool = new LogTool ();
 
         let content = fs.readFileSync (file, 'utf8');
 
@@ -45,13 +45,13 @@ class RebuildController {
 
     async readLine (line) {
 
-        let traceToolkit = new TraceToolkit ();
+        let traceTool = new LogTool ();
 
         let content = fs.readFileSync (line, 'utf8');
 
-        let databaseToolkit = new DatabaseToolkit ();
+        let databaseTool = new DatabaseTool ();
 
-        let result = await databaseToolkit.exe (line, content);
+        let result = await databaseTool.exe (line, content);
 
         console.log (result);
 

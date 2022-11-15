@@ -6,8 +6,8 @@ database:
   pass: XrvC9dK9aTzR0i54u_icQaR2GO6_Y-ve
   user: duawcbov
 document:
-  collection: listingsAndReviews
-  database: sample_airbnb
+  collection: listita
+  database: cuek
   datasource: BeeHappyCluster
   host: https://data.mongodb-api.com/app/data-fvtmd/endpoint/data/v1/
   token: SAjaVXEyjFnCP9fr7Vp3xEqXZgogfqdFwpbF5Eyf7OZwmTexQOa6A2bx6EW3goIF

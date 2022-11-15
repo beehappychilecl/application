@@ -1,4 +1,4 @@
-class JsonToolkit {
+class JsonTool {
 
     jsonObject;
 
@@ -28,4 +28,4 @@ class JsonToolkit {
 
 }
 
-export default JsonToolkit;
+export default JsonTool;

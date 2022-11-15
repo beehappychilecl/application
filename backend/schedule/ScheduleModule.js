@@ -1,22 +1,22 @@
-import ResponseToolkit from '../toolkit/ResponseToolkit.js';
-import ServiceToolkit from '../toolkit/ServiceToolkit.js';
+import ResponseTool from '../toolkit/ResponseTool.js';
+import ServiceTool from '../toolkit/ServiceTool.js';
 
 class ScheduleModule {
 
     async dollarIndicator (host, params) {
 
-        let serviceToolkit = new ServiceToolkit ();
+        let serviceTool = new ServiceTool ();
 
         let result;
 
         try {
 
-            result = await serviceToolkit.get (host, null, params);
+            result = await serviceTool.get (host, null, params);
             result = result.data;
 
         } catch (error) {
 
-            result = ResponseToolkit.WORKFLOW_EXCEPTION ('ScheduleModule', 'dollarIndicator');
+            result = ResponseTool.WORKFLOW_EXCEPTION ('ScheduleModule', 'dollarIndicator');
 
         }
 
@@ -26,18 +26,18 @@ class ScheduleModule {
 
     async euroIndicators (host, params) {
 
-        let serviceToolkit = new ServiceToolkit ();
+        let serviceTool = new ServiceTool ();
 
         let result;
 
         try {
 
-            result = await serviceToolkit.get (host, null, params);
+            result = await serviceTool.get (host, null, params);
             result = result.data;
 
         } catch (error) {
 
-            result = ResponseToolkit.WORKFLOW_EXCEPTION ('ScheduleModule', 'euroIndicators');
+            result = ResponseTool.WORKFLOW_EXCEPTION ('ScheduleModule', 'euroIndicators');
 
         }
 
@@ -47,18 +47,18 @@ class ScheduleModule {
 
     async fomentUnitIndicators (host, params) {
 
-        let serviceToolkit = new ServiceToolkit ();
+        let serviceTool = new ServiceTool ();
 
         let result;
 
         try {
 
-            result = await serviceToolkit.get (host, null, params);
+            result = await serviceTool.get (host, null, params);
             result = result.data;
 
         } catch (error) {
 
-            result = ResponseToolkit.WORKFLOW_EXCEPTION ('ScheduleModule', 'fomentUnitIndicators');
+            result = ResponseTool.WORKFLOW_EXCEPTION ('ScheduleModule', 'fomentUnitIndicators');
 
         }
 
@@ -68,18 +68,18 @@ class ScheduleModule {
 
     async monthlyTaxUnitIndicators (host, params) {
 
-        let serviceToolkit = new ServiceToolkit ();
+        let serviceTool = new ServiceTool ();
 
         let result;
 
         try {
 
-            result = await serviceToolkit.get (host, null, params);
+            result = await serviceTool.get (host, null, params);
             result = result.data;
 
         } catch (error) {
 
-            result = ResponseToolkit.WORKFLOW_EXCEPTION ('ScheduleModule', 'monthlyTaxUnitIndicators');
+            result = ResponseTool.WORKFLOW_EXCEPTION ('ScheduleModule', 'monthlyTaxUnitIndicators');
 
         }
 
@@ -89,18 +89,18 @@ class ScheduleModule {
 
     async uptime (host) {
 
-        let serviceToolkit = new ServiceToolkit ();
+        let serviceTool = new ServiceTool ();
 
         let result;
 
         try {
 
-            result = await serviceToolkit.get (host, null, null);
+            result = await serviceTool.get (host, null, null);
             result = result.data;
 
         } catch (error) {
 
-            result = ResponseToolkit.WORKFLOW_EXCEPTION ('ScheduleModule', 'monthlyTaxUnitIndicators');
+            result = ResponseTool.WORKFLOW_EXCEPTION ('ScheduleModule', 'monthlyTaxUnitIndicators');
 
         }
 

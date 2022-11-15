@@ -1,17 +1,22 @@
 import express from 'express';
 import nodeCron from 'node-cron';
 
-import JsonToolkit from '../toolkit/JsonToolkit.js';
-import PropertiesToolkit from '../toolkit/PropertiesToolkit.js'
+import JsonTool from '../toolkit/JsonTool.js';
+import PropertiesTool from '../toolkit/PropertiesTool.js'
 import ScheduleModule from '../schedule/ScheduleModule.js';
+import LogTool from "../toolkit/LogTool.js";
 
 class ScheduleController {
 
     async awake () {
 
-        let propertiesToolkit = new PropertiesToolkit ()
+        let traceTool = new LogTool ();
 
-        let host = await propertiesToolkit.get ('scheduler.awake.host');
+        await traceTool.initialize ();
+
+        let propertiesTool = new PropertiesTool ()
+
+        let host = await propertiesTool.get ('scheduler.awake.host');
 
         let scheduleModule = new ScheduleModule ();
 
@@ -25,20 +30,24 @@ class ScheduleController {
 
     async indicators () {
 
-        let propertiesToolkit = new PropertiesToolkit ()
+        let traceTool = new LogTool ();
 
-        let dollar = await propertiesToolkit.get ('scheduler.indicators.dollar');
-        let euro = await propertiesToolkit.get ('scheduler.indicators.euro');
-        let foment_unit = await propertiesToolkit.get ('scheduler.indicators.foment_unit');
-        let monthly_tax_unit = await propertiesToolkit.get ('scheduler.indicators.monthly_tax_unit');
-        let token = await propertiesToolkit.get ('scheduler.indicators.token');
+        await traceTool.initialize ();
+
+        let propertiesTool = new PropertiesTool ()
+
+        let dollar = await propertiesTool.get ('scheduler.indicators.dollar');
+        let euro = await propertiesTool.get ('scheduler.indicators.euro');
+        let foment_unit = await propertiesTool.get ('scheduler.indicators.foment_unit');
+        let monthly_tax_unit = await propertiesTool.get ('scheduler.indicators.monthly_tax_unit');
+        let token = await propertiesTool.get ('scheduler.indicators.token');
 
         dollar = dollar + new Date ().getFullYear ().toString ();
         euro = euro + new Date ().getFullYear ().toString ();
         foment_unit = foment_unit + new Date ().getFullYear ().toString ();
         monthly_tax_unit = monthly_tax_unit + new Date ().getFullYear ().toString ();
 
-        let params = new JsonToolkit ();
+        let params = new JsonTool ();
 
         params.add ('apikey', token);
         params.add ('formato', 'json');
@@ -58,10 +67,10 @@ class ScheduleController {
 
     async run () {
 
-        let propertiesToolkit = new PropertiesToolkit ()
+        let propertiesTool = new PropertiesTool ()
 
-        let awake = await propertiesToolkit.get ('scheduler.awake.cron');
-        let indicators = await propertiesToolkit.get ('scheduler.indicators.cron');
+        let awake = await propertiesTool.get ('scheduler.awake.cron');
+        let indicators = await propertiesTool.get ('scheduler.indicators.cron');
 
         nodeCron.schedule (awake, await this.awake);
         nodeCron.schedule (indicators, await this.indicators);

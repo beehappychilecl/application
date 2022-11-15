@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-import JsonToolkit from '../toolkit/JsonToolkit.js';
-import ResponseToolkit from '../toolkit/ResponseToolkit.js';
+import JsonTool from './JsonTool.js';
+import ResponseTool from './ResponseTool.js';
 
-class ServiceToolkit {
+class ServiceTool {
 
     async get (host, headers, params) {
 
-        let config = new JsonToolkit ();
+        let config = new JsonTool ();
 
         if (headers) {
 
@@ -42,7 +42,7 @@ class ServiceToolkit {
 
         } catch (error) {
 
-            result = ResponseToolkit.SERVICE_EXCEPTION ();
+            result = ResponseTool.SERVICE_EXCEPTION ();
 
         }
 
@@ -60,7 +60,7 @@ class ServiceToolkit {
 
         }
 
-        let suffix = new JsonToolkit ();
+        let suffix = new JsonTool ();
 
         if (headers) {
 
@@ -76,8 +76,8 @@ class ServiceToolkit {
             result = result.data;
 
         } catch (error) {
-
-            result = ResponseToolkit.SERVICE_EXCEPTION ();
+console.log(error);
+            result = ResponseTool.SERVICE_EXCEPTION ();
 
         }
 
@@ -87,4 +87,4 @@ class ServiceToolkit {
 
 }
 
-export default ServiceToolkit;
+export default ServiceTool;

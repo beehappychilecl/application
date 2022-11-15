@@ -1,27 +1,30 @@
-import DatabaseToolkit from '../toolkit/DatabaseToolkit.js';
-import TraceToolkit from "../toolkit/TraceToolkit.js";
+import DatabaseTool from '../toolkit/DatabaseTool.js';
+import LogTool from "../toolkit/LogTool.js";
 
 class WebsiteModule {
 
-    async awake (params) {
+    async awake (traceTool, params) {
 
-        let databaseToolkit = new DatabaseToolkit ();
+        let databaseTool = new DatabaseTool ();
 
-        let result = await databaseToolkit.run ('website_get_landing_page', params);
+        let result = await databaseTool.run ('website_get_landing_page', params);
 
         return result;
 
     }
 
-    async landing (params) {
+    async landing (traceTool, params) {
 
-        let traceToolkit = new TraceToolkit (traceToolkit);
+        let logTool = new LogTool ('WebsiteModule', 'landing', traceTool);
 
-        await traceToolkit.initialize ();
+        await logTool.initialize ();
 
-        let databaseToolkit = new DatabaseToolkit ();
+        let databaseTool = new DatabaseTool ();
 
-        let result = await databaseToolkit.run ('website_get_landing_page', params);
+        let result = await databaseTool.run ('website_get_landing_page', params);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 
@@ -29,9 +32,9 @@ class WebsiteModule {
 
     async mailing (params) {
 
-        let databaseToolkit = new DatabaseToolkit ();
+        let databaseTool = new DatabaseTool ();
 
-        let result = await databaseToolkit.run ('website_get_mailing_page', params);
+        let result = await databaseTool.run ('website_get_mailing_page', params);
 
         return result;
 
@@ -39,9 +42,9 @@ class WebsiteModule {
 
     async staff (params) {
 
-        let databaseToolkit = new DatabaseToolkit ();
+        let databaseTool = new DatabaseTool ();
 
-        let result = await databaseToolkit.run ('website_get_name_information', params);
+        let result = await databaseTool.run ('website_get_name_information', params);
 
         return result;
 
@@ -49,9 +52,9 @@ class WebsiteModule {
 
     async vcard (params) {
 
-        let databaseToolkit = new DatabaseToolkit ();
+        let databaseTool = new DatabaseTool ();
 
-        let result = await databaseToolkit.run ('website_get_vcard_information', params);
+        let result = await databaseTool.run ('website_get_vcard_information', params);
 
         return result;
 

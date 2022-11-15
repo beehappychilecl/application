@@ -1,75 +1,78 @@
 import express from 'express';
 
-import JsonToolkit from '../toolkit/JsonToolkit.js';
+import JsonTool from '../toolkit/JsonTool.js';
 import RebuildController from '../rebuild/RebuildController.js';
-import TraceToolkit from '../toolkit/TraceToolkit.js';
+import LogTool from '../toolkit/LogTool.js';
 import WebsiteModule from '../website/WebsiteModule.js';
 
 class WebsiteController {
 
     async awake (request, response) {
 
-        let traceToolkit = new TraceToolkit ();
+        let traceTool = new LogTool ();
 
-        await traceToolkit.initialize ();
+        await traceTool.initialize ();
+        await traceTool.utilize (request);
+        console.log('2');
 
-        let params = new JsonToolkit ();
+        let params = new JsonTool ();
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.awake (params);
+        let result = await websiteModule.awake (traceTool, params);
 
         response.render ('pages/landing/landing.ejs', result.outgoing);
 
-        await traceToolkit.finalize ();
+        await traceTool.realize (result);
+        await traceTool.finalize ();
 
     }
 
     async landing (request, response) {
 
-        //console.log (request.headers['user-agent']);
+        let logTool = new LogTool ('WebsiteController', 'landing', null);
 
-        let traceToolkit = new TraceToolkit ();
+        await logTool.initialize ();
+        await logTool.utilize (request);
 
-        await traceToolkit.initialize ();
-
-        let params = new JsonToolkit ();
+        let params = new JsonTool ();
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.landing (params);
+        let result = await websiteModule.landing (logTool.traceTool, params);
 
         response.render ('pages/landing/landing.ejs', result.outgoing);
 
-        await traceToolkit.finalize ();
+        await logTool.realize (result);
+        await logTool.finalize ();
 
     }
 
     async mailing (request, response) {
 
-        console.log (request.headers['user-agent']);
+        let traceTool = new LogTool ();
 
-        let traceToolkit = new TraceToolkit ();
+        await traceTool.initialize ();
+        await traceTool.utilize (request);
 
-        await traceToolkit.initialize ();
-
-        let params = new JsonToolkit ();
+        let params = new JsonTool ();
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.mailing (params);
+        let result = await websiteModule.mailing (traceTool, params);
 
         response.render ('pages/mailing/mailing.ejs', result.outgoing);
 
-        await traceToolkit.finalize ();
+        await traceTool.finalize ();
 
     }
 
     async rebuild (request, response) {
 
-        let traceToolkit = new TraceToolkit ();
+        let traceTool = new LogTool ();
 
-        await traceToolkit.initialize ();
+        await traceTool.initialize ();
+        await traceTool.utilize (request);
 
         let rebuildController = new RebuildController ();
 
@@ -79,19 +82,24 @@ class WebsiteController {
         response.render ('pages/landing/landing.ejs', {'txt_version': 'rebuild'});
         console.log ('222');
 
-        await traceToolkit.finalize ();
+        await traceTool.finalize ();
 
     }
 
     async staff (request, response) {
 
-        let params = new JsonToolkit ();
+        let traceTool = new LogTool ();
+
+        await traceTool.initialize ();
+        await traceTool.utilize (request);
+
+        let params = new JsonTool ();
 
         params.add ('txt_first_name', request.params.txt_first_name);
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.staff (params);
+        let result = await websiteModule.staff (traceTool, params);
 
         response.render ('pages/staff/staff.ejs', result.outgoing);
 
@@ -99,18 +107,16 @@ class WebsiteController {
 
     async vcard (request, response) {
 
-        let params = new JsonToolkit ();
+        let params = new JsonTool ();
 
         params.add ('txt_first_name', request.params.txt_first_name);
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.vcard (params);
+        let result = await websiteModule.vcard (traceTool, params);
 
         response.setHeader ('content-type', 'text/x-vcard');
         response.send (result.outgoing.txt_vcard);
-
-        console.log (result.outgoing.txt_vcard)
 
     }
 
