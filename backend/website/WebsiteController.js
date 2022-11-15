@@ -1,42 +1,51 @@
 import express from 'express';
 
 import JsonToolkit from '../toolkit/JsonToolkit.js';
-import PropertiesToolkit from '../toolkit/PropertiesToolkit.js';
 import RebuildController from '../rebuild/RebuildController.js';
-import ScheduleModule from '../schedule/ScheduleModule.js';
 import TraceToolkit from '../toolkit/TraceToolkit.js';
 import WebsiteModule from '../website/WebsiteModule.js';
 
 class WebsiteController {
 
-    async landing2 () {
+    async awake (request, response) {
 
-        let result = {'fecha': 'hoy mismo probando'};
+        let traceToolkit = new TraceToolkit ();
 
-        let propertiesToolkit = new PropertiesToolkit ()
-
-        let dollar = await propertiesToolkit.get ('scheduler.indicators.dollar');
-        let token = await propertiesToolkit.get ('scheduler.indicators.token');
-
-        dollar = dollar + new Date ().getFullYear ().toString ();
+        await traceToolkit.initialize ();
 
         let params = new JsonToolkit ();
 
-        params.add ('apikey', token);
-        params.add ('formato', 'json');
+        let websiteModule = new WebsiteModule ();
 
-        let scheduleModule = new ScheduleModule ();
+        let result = await websiteModule.awake (params);
 
-        await scheduleModule.dollarIndicator (dollar, params)
+        response.render ('pages/landing/landing.ejs', result.outgoing);
 
-        return result;
+        await traceToolkit.finalize ();
 
-    }
-
-    async awake (request, response) {
     }
 
     async landing (request, response) {
+
+        //console.log (request.headers['user-agent']);
+
+        let traceToolkit = new TraceToolkit ();
+
+        await traceToolkit.initialize ();
+
+        let params = new JsonToolkit ();
+
+        let websiteModule = new WebsiteModule ();
+
+        let result = await websiteModule.landing (params);
+
+        response.render ('pages/landing/landing.ejs', result.outgoing);
+
+        await traceToolkit.finalize ();
+
+    }
+
+    async mailing (request, response) {
 
         console.log (request.headers['user-agent']);
 
@@ -44,11 +53,13 @@ class WebsiteController {
 
         await traceToolkit.initialize ();
 
-        let propertiesToolkit = new PropertiesToolkit ()
+        let params = new JsonToolkit ();
 
-        let version = await propertiesToolkit.get ('system.version');
+        let websiteModule = new WebsiteModule ();
 
-        response.render ('pages/landing/landing.ejs', {'txt_version': version});
+        let result = await websiteModule.mailing (params);
+
+        response.render ('pages/mailing/mailing.ejs', result.outgoing);
 
         await traceToolkit.finalize ();
 
@@ -81,9 +92,6 @@ class WebsiteController {
         let websiteModule = new WebsiteModule ();
 
         let result = await websiteModule.staff (params);
-        console.log('********************++');
-        console.log(result.outgoing);
-        console.log('********************++');
 
         response.render ('pages/staff/staff.ejs', result.outgoing);
 
@@ -97,21 +105,12 @@ class WebsiteController {
 
         let websiteModule = new WebsiteModule ();
 
-        await websiteModule.staff (params);
-
-        let xxx = 'BEGIN:VCARD\n' +
-            'VERSION:3.0\n' +
-            'N:Alexis;Bacian;;;\n' +
-            'FN:Alexis Bacian\n' +
-            'TITLE:Director Ejecutivo\n' +
-            'ORG:BeeHappy®\n' +
-            'TEL;TYPE=WORK,VOICE:56991220195\n' +
-            'EMAIL:alexis@beehappy.ee\n' +
-            'URL;TYPE=WORK:https://beehappy.ee/staff/alexis\n' +
-            'END:VCARD\n';
+        let result = await websiteModule.vcard (params);
 
         response.setHeader ('content-type', 'text/x-vcard');
-        response.send (xxx);
+        response.send (result.outgoing.txt_vcard);
+
+        console.log (result.outgoing.txt_vcard)
 
     }
 
@@ -122,6 +121,8 @@ const router = express.Router ();
 let websiteController = new WebsiteController ();
 
 router.get ('/', await websiteController.landing);
+router.get ('/landing', await websiteController.landing);
+router.get ('/mailing', await websiteController.mailing);
 router.get ('/staff/:txt_first_name', await websiteController.staff);
 router.get ('/staff/:txt_first_name/vcard', await websiteController.vcard);
 router.get ('/system/awake', await websiteController.awake);

@@ -11,10 +11,10 @@ class RebuildController {
 
         let traceToolkit = new TraceToolkit ();
 
-        //await this.readFile (this.path + '/setup.txt');
+        await this.readFile (this.path + '/setup.txt');
         await this.readFile (this.path + '/constants.txt');
-        //await this.readFile (this.path + '/indicators.txt');
-        //await this.readFile (this.path + '/organization.txt');
+        await this.readFile (this.path + '/indicators.txt');
+        await this.readFile (this.path + '/organization.txt');
         await this.readFile (this.path + '/website.txt');
 
     }

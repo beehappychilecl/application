@@ -11,6 +11,7 @@ declare
     var_txt_first_name text;
     var_txt_name text;
     var_txt_full_name_1 text;
+    var_txt_landing text;
     var_txt_last_name text;
     var_txt_mail text;
     var_txt_phone_1 text;
@@ -79,23 +80,30 @@ begin
     into
         var_txt_phone_1;
 
+    select
+        cst.txt_value
+    into
+        var_txt_landing
+    from
+        dat_constants cst
+    where
+        cst.txt_key = 'application_version';
+
     var_txt_vcard = '';
     var_txt_vcard = var_txt_vcard || 'BEGIN:VCARD' || chr (10);
     var_txt_vcard = var_txt_vcard || 'VERSION:3.0' || chr (10);
     var_txt_vcard = var_txt_vcard || 'N:' || var_txt_last_name || ';' || var_txt_first_name || ';;;' || chr (10);
     var_txt_vcard = var_txt_vcard || 'FN:' || var_txt_full_name_1 || chr (10);
     var_txt_vcard = var_txt_vcard || 'TITLE:' || var_txt_profile || chr (10);
-    var_txt_vcard = var_txt_vcard || 'ORG:BeeHappy Chile' || chr (10);
+    var_txt_vcard = var_txt_vcard || 'ORG:BeeHappy®' || chr (10);
     var_txt_vcard = var_txt_vcard || 'TEL;TYPE=WORK,VOICE:' || var_txt_phone_1 || chr (10);
     var_txt_vcard = var_txt_vcard || 'EMAIL:' || var_txt_mail || chr (10);
-    var_txt_vcard = var_txt_vcard || 'URL;TYPE=WORK:https://beehappychile.cl/staff/' || lower (var_txt_first_name) || chr (10);
+    var_txt_vcard = var_txt_vcard || 'URL;TYPE=WORK:' || var_txt_landing || '/staff/' || lower (var_txt_first_name) || chr (10);
     var_txt_vcard = var_txt_vcard || 'END:VCARD';
 
     var_jsn_outgoing = core_set_json_text (var_jsn_outgoing, 'txt_vcard', var_txt_vcard);
 
-    in_jsn_incoming = core_set_json_json (in_jsn_incoming, 'outgoing', var_jsn_outgoing);
-
-    return result_get_success (in_jsn_incoming);
+    return result_set_return (in_jsn_incoming, var_jsn_incoming, var_jsn_outgoing);
 
 exception
     when others then

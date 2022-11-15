@@ -2,5 +2,8 @@
 /* D E F I N I T I O N */
 /* * * * * * * * * * * */
 
+website/definition/functions/website_get_awake_page.sql
+website/definition/functions/website_get_landing_page.sql
+website/definition/functions/website_get_mailing_page.sql
 website/definition/functions/website_get_name_information.sql
 website/definition/functions/website_get_vcard_information.sql
