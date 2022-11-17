@@ -15,7 +15,7 @@ class LogTool {
 
     constructor (aClass, aMethod, traceTool) {
 
-        this.traceTool = new TraceTool (null);
+        this.traceTool = new TraceTool ();
 
         if (traceTool === null) {
 
@@ -24,43 +24,74 @@ class LogTool {
 
         } else {
 
-            this.traceTool.level = traceTool.level + 1;
+            this.traceTool.level = parseInt (traceTool.level) + 1;
             this.traceTool.thread = traceTool.thread;
 
         }
 
-        this.traceTool.aClass = aClass;
-        this.traceTool.aMethod = aMethod;
+        this.traceTool.class = aClass;
+        this.traceTool.method = aMethod;
         this.traceTool.offset = crypto.randomUUID ();
 
     }
 
-    async finalize () {
+    async finalize (caption) {
 
-        this.traceTool.final = new Date ();
-        this.traceTool.runtime = (this.traceTool.final - this.traceTool.initial) / 1000;
+        this.traceTool.ending = new Date ();
+        this.traceTool.runtime = ((this.traceTool.ending - this.traceTool.starting) / 1000).toFixed (3);
 
         let documentTool = new DocumentTool ();
 
-        //await documentTool.insert (this.traceTool);
+        await documentTool.insert (this.traceTool);
+
+        let message = '';
+        message = message + this.traceTool.thread + ' [';
+        message = message + this.traceTool.runtime + '] [';
+        message = message + this.traceTool.level + '] ';
+        message = message + this.traceTool.class + '.';
+        message = message + this.traceTool.method;
+
+        if (caption) {
+
+            message = message + ' - ' + caption;
+
+        }
+
+        console.log (message);
 
     }
 
     async initialize () {
 
-        this.traceTool.initial = new Date ();
+        this.traceTool.starting = new Date ();
 
     }
 
     async realize (result) {
 
-        delete result.incoming['_locals'];
-        delete result.outgoing['_locals'];
-        delete result.status['_locals'];
+        if (result.incoming) {
 
-        this.traceTool.incoming = result.incoming;
-        this.traceTool.outgoing = result.outgoing;
-        this.traceTool.status = result.status;
+            delete result.incoming['_locals'];
+
+            this.traceTool.incoming = result.incoming;
+
+        }
+
+        if (result.outgoing) {
+
+            delete result.outgoing['_locals'];
+
+            this.traceTool.outgoing = result.outgoing;
+
+        }
+
+        if (result.status) {
+
+            delete result.status['_locals'];
+
+            this.traceTool.status = result.status;
+
+        }
 
     }
 

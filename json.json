@@ -1,19 +1,30 @@
 {
   "status": {
-    "tim_date": "2022-11-12",
-    "tim_time": "06:06:25.692",
-    "tim_datetime": "2022-11-12 06:06:25.692"
+    "tim_date": "2022-11-16",
+    "tim_time": "13:37:15.017",
+    "sys_result": 0,
+    "sys_message": "OK",
+    "tim_elapsed": "0.000",
+    "tim_datetime": "2022-11-16 13:37:15.017"
   },
   "incoming": {
-    "txt_first_name": "alexis"
-  },
-  "outgoing": {
-    "txt_icon": "bx-rocket",
-    "txt_mail": "alexis@beehappy.ee",
-    "txt_name": "alexis",
-    "txt_phone_1": "+56 9 9122 0195",
-    "txt_phone_2": "56991220195",
-    "txt_profile": "Director Ejecutivo",
-    "txt_full_name": "Alexis Bacian"
+    "Dolares": [
+      {
+        "Fecha": "2022-01-03",
+        "Valor": "844,69"
+      },
+      {
+        "Fecha": "2022-01-04",
+        "Valor": "851,43"
+      },
+      {
+        "Fecha": "2022-01-05",
+        "Valor": "852,03"
+      },
+      {
+        "Fecha": "2022-01-06",
+        "Valor": "841,63"
+      }
+    ]
   }
 }

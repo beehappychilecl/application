@@ -1,11 +1,16 @@
 import pg from 'pg';
 
-import PropertiesTool from './PropertiesTool.js';
-import ResponseTool from './ResponseTool.js';
+import LogTool from "../toolkit/LogTool.js";
+import PropertiesTool from '../toolkit/PropertiesTool.js';
+import ResponseTool from '../toolkit/ResponseTool.js';
 
 class DatabaseTool {
 
-    async exe (line, content) {
+    async exe (traceTool, line, content) {
+
+        let logTool = new LogTool ('DatabaseTool', 'exe', traceTool);
+
+        await logTool.initialize ();
 
         let propertiesTool = new PropertiesTool ();
 
@@ -41,11 +46,18 @@ class DatabaseTool {
 
         await postgresql.end ();
 
+        await logTool.realize (result);
+        await logTool.finalize ();
+
         return result;
 
     }
 
-    async run (procedure, params) {
+    async run (traceTool, procedure, params) {
+
+        let logTool = new LogTool ('DatabaseTool', 'run', traceTool);
+
+        await logTool.initialize ();
 
         let propertiesTool = new PropertiesTool ();
 
@@ -79,6 +91,9 @@ class DatabaseTool {
         }
 
         await postgresql.end ();
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 

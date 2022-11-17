@@ -2,17 +2,18 @@ import express from 'express';
 import nodeCron from 'node-cron';
 
 import JsonTool from '../toolkit/JsonTool.js';
+import LogTool from "../toolkit/LogTool.js";
 import PropertiesTool from '../toolkit/PropertiesTool.js'
 import ScheduleModule from '../schedule/ScheduleModule.js';
-import LogTool from "../toolkit/LogTool.js";
+import ResponseTool from "../toolkit/ResponseTool.js";
 
 class ScheduleController {
 
     async awake () {
 
-        let traceTool = new LogTool ();
+        let logTool = new LogTool ('ScheduleController', 'awake', null);
 
-        await traceTool.initialize ();
+        await logTool.initialize ();
 
         let propertiesTool = new PropertiesTool ()
 
@@ -20,19 +21,20 @@ class ScheduleController {
 
         let scheduleModule = new ScheduleModule ();
 
-        await scheduleModule.uptime (host);
+        await scheduleModule.awake (logTool.traceTool, host);
 
-        console.log ('Running wakeup task every 10 minutes');
+        let result = ResponseTool.SUCCESSFUL ();
 
-        return null;
+        await logTool.realize (result);
+        await logTool.finalize ('Running awake task every ten minutes');
 
     }
 
     async indicators () {
 
-        let traceTool = new LogTool ();
+        let logTool = new LogTool ('ScheduleController', 'indicators', null);
 
-        await traceTool.initialize ();
+        await logTool.initialize ();
 
         let propertiesTool = new PropertiesTool ()
 
@@ -54,18 +56,23 @@ class ScheduleController {
 
         let scheduleModule = new ScheduleModule ();
 
-        await scheduleModule.dollarIndicator (dollar, params)
-        await scheduleModule.euroIndicators (euro, params);
-        await scheduleModule.fomentUnitIndicators (foment_unit, params);
-        await scheduleModule.monthlyTaxUnitIndicators (monthly_tax_unit, params);
+        await scheduleModule.dollarIndicator (logTool.traceTool, dollar, params)
+        await scheduleModule.euroIndicators (logTool.traceTool, euro, params);
+        await scheduleModule.fomentUnitIndicators (logTool.traceTool, foment_unit, params);
+        await scheduleModule.monthlyTaxUnitIndicators (logTool.traceTool, monthly_tax_unit, params);
 
-        console.log ('Running indicators task any times per day');
+        let result = ResponseTool.SUCCESSFUL ();
 
-        return null;
+        await logTool.realize (result);
+        await logTool.finalize ('Running indicators task any times per day');
 
     }
 
     async run () {
+
+        let logTool = new LogTool ('ScheduleController', 'run', null);
+
+        await logTool.initialize ();
 
         let propertiesTool = new PropertiesTool ()
 
@@ -74,6 +81,11 @@ class ScheduleController {
 
         nodeCron.schedule (awake, await this.awake);
         nodeCron.schedule (indicators, await this.indicators);
+
+        let result = ResponseTool.SUCCESSFUL ();
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
     }
 

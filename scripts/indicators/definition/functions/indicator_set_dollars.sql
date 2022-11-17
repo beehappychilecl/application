@@ -17,23 +17,9 @@ begin
     in_jsn_incoming = result_get_initial (in_jsn_incoming);
 
     var_obj_incoming = core_get_json_json (in_jsn_incoming, 'incoming');
-    var_obj_incoming = core_del_json_node (var_obj_incoming, 'autor');
-    var_obj_incoming = core_del_json_node (var_obj_incoming, 'codigo');
-    var_obj_incoming = core_del_json_node (var_obj_incoming, 'nombre');
-    var_obj_incoming = core_del_json_node (var_obj_incoming, 'version');
-    var_obj_incoming = core_del_json_node (var_obj_incoming, 'unidad_medida');
 
-    in_jsn_incoming = core_del_json_node (in_jsn_incoming, 'incoming');
-    in_jsn_incoming = core_set_json_json (in_jsn_incoming, 'incoming', var_obj_incoming);
-
-    if (system_get_maintenance_mode () is true) then
-
-        return result_get_maintenance (in_jsn_incoming);
-
-    end if;
-
-    var_obj_series = core_get_json_json ((in_jsn_incoming ->> 'incoming') :: json, 'serie');
-
+    var_obj_series = core_get_json_json ((in_jsn_incoming ->> 'incoming') :: json, 'Dolares');
+/*
     for var_rec_day in
         select distinct
             to_char ((json ->> 'fecha') :: date, 'yyyymmdd') :: numeric "idf_dollar",
@@ -218,7 +204,7 @@ begin
             idf_dollar = var_rec_day.idf_dollar;
 
     end loop;
-
+*/
     return result_get_success (in_jsn_incoming);
 
 exception

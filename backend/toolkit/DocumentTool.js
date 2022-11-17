@@ -1,51 +1,28 @@
-import JsonTool from './JsonTool.js';
-import PropertiesTool from './PropertiesTool.js';
-import ResponseTool from './ResponseTool.js';
-import ServiceTool from './ServiceTool.js';
+import {MongoClient} from "mongodb";
+
+import PropertiesTool from '../toolkit/PropertiesTool.js';
 
 class DocumentTool {
 
-    async insert () {
+    async insert (data) {
 
         let propertiesTool = new PropertiesTool ();
 
         let collection = await propertiesTool.get ('document.collection');
         let database = await propertiesTool.get ('document.database');
-        let datasource = await propertiesTool.get ('document.datasource');
         let host = await propertiesTool.get ('document.host');
-        let token = await propertiesTool.get ('document.token');
 
-        host = host + 'action/insertOne';
+        let mongoClient = new MongoClient (host);
 
-        let headers = new JsonTool ();
+        await mongoClient.connect ();
 
-        headers.add ('content-type', 'application/ejson');
-        headers.add ('api-key', token);
+        let mongoDatabase = mongoClient.db (database);
 
-        let params = new JsonTool ();
+        let mongoCollection = mongoDatabase.collection (collection);
 
-        params.add ('collection', collection);
-        params.add ('database', database);
-        params.add ('dataSource', datasource);
-        params.add ('document', {
-            'text': 'Hello from the Data API!'
-        });
+        await mongoCollection.insertOne (data);
 
-        let serviceTool = new ServiceTool ();
-
-        let result;
-
-        try {
-
-            result = await serviceTool.post (host, headers, params);
-
-        } catch (error) {
-
-            result = ResponseTool.DOCUMENT_EXCEPTION ();
-
-        }
-console.log(result);
-        return result;
+        await mongoClient.close ();
 
     }
 

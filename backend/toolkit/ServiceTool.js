@@ -1,23 +1,28 @@
 import axios from 'axios';
 
-import JsonTool from './JsonTool.js';
-import ResponseTool from './ResponseTool.js';
+import JsonTool from '../toolkit/JsonTool.js';
+import LogTool from "../toolkit/LogTool.js";
+import ResponseTool from '../toolkit/ResponseTool.js';
 
 class ServiceTool {
 
-    async get (host, headers, params) {
+    async get (traceTool, host, headers, params) {
+
+        let logTool = new LogTool ('ServiceTool', 'get', traceTool);
+
+        await logTool.initialize ();
 
         let config = new JsonTool ();
 
         if (headers) {
 
-            config.add ("headers", headers.get ());
+            config.add ("headers", headers.all ());
 
         }
 
         if (params) {
 
-            config.add ("params", params.get ());
+            config.add ("params", params.all ());
 
         }
 
@@ -46,11 +51,18 @@ class ServiceTool {
 
         }
 
+        await logTool.realize (result);
+        await logTool.finalize ();
+
         return result;
 
     }
 
-    async post (host, headers, params) {
+    async post (traceTool, host, headers, params) {
+
+        let logTool = new LogTool ('ServiceTool', 'post', traceTool);
+
+        await logTool.initialize ();
 
         let prefix;
 
@@ -76,10 +88,13 @@ class ServiceTool {
             result = result.data;
 
         } catch (error) {
-console.log(error);
+
             result = ResponseTool.SERVICE_EXCEPTION ();
 
         }
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 

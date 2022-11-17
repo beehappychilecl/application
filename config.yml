@@ -6,18 +6,19 @@ database:
   pass: XrvC9dK9aTzR0i54u_icQaR2GO6_Y-ve
   user: duawcbov
 document:
-  collection: listita
-  database: cuek
+  collection: BeeHappyTraces
+  database: BeeHappyDatabase
   datasource: BeeHappyCluster
-  host: https://data.mongodb-api.com/app/data-fvtmd/endpoint/data/v1/
-  token: SAjaVXEyjFnCP9fr7Vp3xEqXZgogfqdFwpbF5Eyf7OZwmTexQOa6A2bx6EW3goIF
+  host: mongodb+srv://beehappy:beehappy@beehappycluster.ykz3xfn.mongodb.net/?retryWrites=true&w=majority
 scheduler:
   awake:
     cron: 0 0,10,20,30,40,50 * * * *
+    #cron: 0 */1 * * * *
     host: https://beehappy.ee/system/awake
     #host: http://127.0.0.1:8080/system/awake
   indicators:
     cron: 0 0 0,6,12,18 * * *
+    #cron: 0 */1 * * * *
     dollar: https://api.cmfchile.cl/api-sbifv3/recursos_api/dolar/
     euro: https://api.cmfchile.cl/api-sbifv3/recursos_api/euro/
     foment_unit: https://api.cmfchile.cl/api-sbifv3/recursos_api/uf/

@@ -5,9 +5,16 @@ class WebsiteModule {
 
     async awake (traceTool, params) {
 
+        let logTool = new LogTool ('WebsiteModule', 'awake', traceTool);
+
+        await logTool.initialize ();
+
         let databaseTool = new DatabaseTool ();
 
-        let result = await databaseTool.run ('website_get_landing_page', params);
+        let result = await databaseTool.run (logTool.traceTool, 'website_get_awake_page', params);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 
@@ -21,7 +28,7 @@ class WebsiteModule {
 
         let databaseTool = new DatabaseTool ();
 
-        let result = await databaseTool.run ('website_get_landing_page', params);
+        let result = await databaseTool.run (logTool.traceTool, 'website_get_landing_page', params);
 
         await logTool.realize (result);
         await logTool.finalize ();
@@ -30,31 +37,52 @@ class WebsiteModule {
 
     }
 
-    async mailing (params) {
+    async mailing (traceTool, params) {
+
+        let logTool = new LogTool ('WebsiteModule', 'landing', traceTool);
+
+        await logTool.initialize ();
 
         let databaseTool = new DatabaseTool ();
 
-        let result = await databaseTool.run ('website_get_mailing_page', params);
+        let result = await databaseTool.run (logTool.traceTool, 'website_get_mailing_page', params);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 
     }
 
-    async staff (params) {
+    async staff (traceTool, params) {
+
+        let logTool = new LogTool ('WebsiteModule', 'landing', traceTool);
+
+        await logTool.initialize ();
 
         let databaseTool = new DatabaseTool ();
 
-        let result = await databaseTool.run ('website_get_name_information', params);
+        let result = await databaseTool.run (logTool.traceTool, 'website_get_name_information', params);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 
     }
 
-    async vcard (params) {
+    async vcard (traceTool, params) {
+
+        let logTool = new LogTool ('WebsiteModule', 'landing', traceTool);
+
+        await logTool.initialize ();
 
         let databaseTool = new DatabaseTool ();
 
-        let result = await databaseTool.run ('website_get_vcard_information', params);
+        let result = await databaseTool.run (logTool.traceTool, 'website_get_vcard_information', params);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
         return result;
 

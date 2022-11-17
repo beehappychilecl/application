@@ -1,159 +1,159 @@
 class TraceTool {
 
-    _aClass;
-    _agent;
-    _aMethod;
-    _final;
-    _incoming;
-    _initial;
-    _level;
-    _offset;
-    _outgoing;
-    _runtime;
-    _status;
-    _thread;
+    class;
+    agent;
+    method;
+    ending;
+    incoming;
+    level;
+    offset;
+    outgoing;
+    runtime;
+    starting;
+    status;
+    thread;
 
-    get aClass () {
+    get class () {
 
-        return this._aClass;
+        return this.class;
 
     }
 
-    set aClass (value) {
+    set class (value) {
 
-        this._aClass = value;
+        this.class = value;
 
     }
 
     get agent () {
 
-        return this._agent;
+        return this.agent;
 
     }
 
     set agent (value) {
 
-        this._agent = value;
+        this.agent = value;
 
     }
 
-    get aMethod () {
+    get method () {
 
-        return this._aMethod;
-
-    }
-
-    set aMethod (value) {
-
-        this._aMethod = value;
+        return this.method;
 
     }
 
-    get final () {
+    set method (value) {
 
-        return this._final;
+        this.method = value;
 
     }
 
-    set final (value) {
+    get ending () {
 
-        this._final = value;
+        return this.ending;
+
+    }
+
+    set ending (value) {
+
+        this.ending = value;
 
     }
 
     get incoming () {
 
-        return this._incoming;
+        return this.incoming;
 
     }
 
     set incoming (value) {
 
-        this._incoming = value;
-
-    }
-
-    get initial () {
-
-        return this._initial;
-
-    }
-
-    set initial (value) {
-
-        this._initial = value;
+        this.incoming = value;
 
     }
 
     get level () {
 
-        return this._level;
+        return this.level;
 
     }
 
     set level (value) {
 
-        this._level = value;
+        this.level = value;
 
     }
 
     get offset () {
 
-        return this._offset;
+        return this.offset;
 
     }
 
     set offset (value) {
 
-        this._offset = value;
+        this.offset = value;
 
     }
 
     get outgoing () {
 
-        return this._outgoing;
+        return this.outgoing;
 
     }
 
     set outgoing (value) {
 
-        this._outgoing = value;
+        this.outgoing = value;
 
     }
 
     get runtime () {
 
-        return this._runtime;
+        return this.runtime;
 
     }
 
     set runtime (value) {
 
-        this._runtime = value;
+        this.runtime = value;
+
+    }
+
+    get starting () {
+
+        return this.starting;
+
+    }
+
+    set starting (value) {
+
+        this.starting = value;
 
     }
 
     get status () {
 
-        return this._status;
+        return this.status;
 
     }
 
     set status (value) {
 
-        this._status = value;
+        this.status = value;
 
     }
 
     get thread () {
 
-        return this._thread;
+        return this.thread;
 
     }
 
     set thread (value) {
 
-        this._thread = value;
+        this.thread = value;
 
     }
 

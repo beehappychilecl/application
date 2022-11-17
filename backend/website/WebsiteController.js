@@ -1,30 +1,41 @@
 import express from 'express';
 
 import JsonTool from '../toolkit/JsonTool.js';
-import RebuildController from '../rebuild/RebuildController.js';
 import LogTool from '../toolkit/LogTool.js';
+import RebuildController from '../rebuild/RebuildController.js';
 import WebsiteModule from '../website/WebsiteModule.js';
+import TraceTool from "../toolkit/TraceTool.js";
 
 class WebsiteController {
 
     async awake (request, response) {
 
-        let traceTool = new LogTool ();
+        let traceTool = null;
 
-        await traceTool.initialize ();
-        await traceTool.utilize (request);
-        console.log('2');
+        if (Object.keys (request.query).length !== 0) {
+
+            traceTool = new TraceTool ();
+
+            traceTool.level = parseInt (request.query.level) + 1;
+            traceTool.thread = request.query.thread;
+
+        }
+
+        let logTool = new LogTool ('WebsiteController', 'awake', traceTool);
+
+        await logTool.initialize ();
+        await logTool.utilize (request);
 
         let params = new JsonTool ();
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.awake (traceTool, params);
+        let result = await websiteModule.awake (logTool.traceTool, params);
 
-        response.render ('pages/landing/landing.ejs', result.outgoing);
+        await logTool.realize (result);
+        await logTool.finalize ();
 
-        await traceTool.realize (result);
-        await traceTool.finalize ();
+        response.send (result);
 
     }
 
@@ -50,48 +61,48 @@ class WebsiteController {
 
     async mailing (request, response) {
 
-        let traceTool = new LogTool ();
+        let logTool = new LogTool ('WebsiteController', 'mailing', null);
 
-        await traceTool.initialize ();
-        await traceTool.utilize (request);
+        await logTool.initialize ();
+        await logTool.utilize (request);
 
         let params = new JsonTool ();
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.mailing (traceTool, params);
+        let result = await websiteModule.mailing (logTool.traceTool, params);
 
         response.render ('pages/mailing/mailing.ejs', result.outgoing);
 
-        await traceTool.finalize ();
+        await logTool.realize (result);
+        await logTool.finalize ();
 
     }
 
     async rebuild (request, response) {
 
-        let traceTool = new LogTool ();
+        let logTool = new LogTool ('WebsiteController', 'rebuild', null);
 
-        await traceTool.initialize ();
-        await traceTool.utilize (request);
+        await logTool.initialize ();
+        await logTool.utilize (request);
 
         let rebuildController = new RebuildController ();
 
-        await rebuildController.run ();
+        let result = await rebuildController.run ();
 
-        console.log ('111');
         response.render ('pages/landing/landing.ejs', {'txt_version': 'rebuild'});
-        console.log ('222');
 
-        await traceTool.finalize ();
+        await logTool.realize (result);
+        await logTool.finalize ();
 
     }
 
     async staff (request, response) {
 
-        let traceTool = new LogTool ();
+        let logTool = new LogTool ('WebsiteController', 'staff', null);
 
-        await traceTool.initialize ();
-        await traceTool.utilize (request);
+        await logTool.initialize ();
+        await logTool.utilize (request);
 
         let params = new JsonTool ();
 
@@ -99,24 +110,35 @@ class WebsiteController {
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.staff (traceTool, params);
+        let result = await websiteModule.staff (logTool.traceTool, params);
 
         response.render ('pages/staff/staff.ejs', result.outgoing);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
     }
 
     async vcard (request, response) {
 
+        let logTool = new LogTool ('WebsiteController', 'vcard', null);
+
+        await logTool.initialize ();
+        await logTool.utilize (request);
+
         let params = new JsonTool ();
 
         params.add ('txt_first_name', request.params.txt_first_name);
 
         let websiteModule = new WebsiteModule ();
 
-        let result = await websiteModule.vcard (traceTool, params);
+        let result = await websiteModule.vcard (logTool.traceTool, params);
 
         response.setHeader ('content-type', 'text/x-vcard');
         response.send (result.outgoing.txt_vcard);
+
+        await logTool.realize (result);
+        await logTool.finalize ();
 
     }
 
