@@ -5,6 +5,11 @@ database:
   port: 5432
   pass: XrvC9dK9aTzR0i54u_icQaR2GO6_Y-ve
   user: duawcbov
+discord:
+  beebee:
+    notifications: https://discord.com/api/webhooks/1043051348381421598/oqytOEnH2Ms4cnVaOD5Q1_XDP-JysOCy1ArLC3fYGA1JZ8x3RkRXalCB3BdCJKNACefc
+  beejay:
+    notifications: https://discord.com/api/webhooks/1043075407563472937/bE7TQvqC5qqTumO82UfY2yqZSTxAzRqSc7zWCBZiN6DlkBJsmB6XfNyvqxoc_Xsvx8HS
 document:
   collection: BeeHappyTraces
   database: BeeHappyDatabase
@@ -27,4 +32,5 @@ scheduler:
 server:
   port: 8080
 system:
-  version: 2.171122
+  token: 559545ed2432d1392c9340e1e10101c1
+  version: 2.181122

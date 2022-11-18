@@ -84,7 +84,7 @@ class ServiceTool {
 
         try {
 
-            result = await axios.post (host, prefix.get (), suffix.all ());
+            result = await axios.post (host, prefix.all (), suffix.all ());
             result = result.data;
 
         } catch (error) {

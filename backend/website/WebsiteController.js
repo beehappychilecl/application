@@ -6,6 +6,9 @@ import RebuildController from '../rebuild/RebuildController.js';
 import WebsiteModule from '../website/WebsiteModule.js';
 import TraceTool from "../toolkit/TraceTool.js";
 
+import ServiceTool from '../toolkit/ServiceTool.js';
+import PropertiesTool from "../toolkit/PropertiesTool.js";
+
 class WebsiteController {
 
     async awake (request, response) {
@@ -119,6 +122,70 @@ class WebsiteController {
 
     }
 
+    async test (request, response) {
+
+        let propertiesTool = new PropertiesTool ();
+
+        let headers = new JsonTool ();
+        headers.add ('content-type', 'application/json');
+
+        let host = await propertiesTool.get ('discord.beebee.notifications');
+
+        let params = new JsonTool ();
+
+        params.add ('embeds', [
+            {
+                "title": "Prueba de BeeBee®",
+                "description": "*Hola!* @everyone **Wow!** I can __use__ hyperlinks [here](https://discord.com)."+ String.fromCharCode(10) +"Correo: [*+56 9 7800-8001*](mailto:cuentapahotmail@gmail.com)"+ String.fromCharCode(10) +"Telefono: [*+56 9 7800-8001*](https://api.whatsapp.com/send?phone=56991220195)",
+                "color": "16761095"
+            }
+        ]);
+
+        let result = null;
+
+        let serviceTool = new ServiceTool ();
+
+        try {
+
+            result = await serviceTool.post (null, host, headers, params);
+            console.log (result);
+
+        } catch (error) {
+
+            console.log (error);
+
+        }
+
+        host = await propertiesTool.get ('discord.beejay.notifications');
+
+        params = new JsonTool ();
+
+        params.add ('embeds', [
+            {
+                "title": "Prueba de BeeJay®",
+                "description": "*Hola!* @everyone **Wow!** I can __use__ hyperlinks [here](https://discord.com)."+ String.fromCharCode(10) +"Correo: [*+56 9 7800-8001*](mailto:cuentapahotmail@gmail.com)"+ String.fromCharCode(10) +"Telefono: [*+56 9 7800-8001*](https://api.whatsapp.com/send?phone=56991220195)",
+                "color": "16761095"
+            }
+        ]);
+
+        result = null;
+
+        try {
+
+            result = await serviceTool.post (null, host, headers, params);
+            console.log (result);
+
+        } catch (error) {
+
+            console.log (error);
+
+        }
+
+        let aaa = {};
+        response.send (aaa);
+
+    }
+
     async vcard (request, response) {
 
         let logTool = new LogTool ('WebsiteController', 'vcard', null);
@@ -155,5 +222,6 @@ router.get ('/staff/:txt_first_name', await websiteController.staff);
 router.get ('/staff/:txt_first_name/vcard', await websiteController.vcard);
 router.get ('/system/awake', await websiteController.awake);
 router.get ('/system/rebuild', await websiteController.rebuild);
+router.get ('/test', await websiteController.test);
 
 export default router;
