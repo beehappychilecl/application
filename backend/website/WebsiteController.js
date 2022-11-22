@@ -11,6 +11,14 @@ import PropertiesTool from "../toolkit/PropertiesTool.js";
 
 class WebsiteController {
 
+    websiteModule;
+
+    constructor () {
+
+        this.websiteModule = new WebsiteModule ();
+
+    }
+
     async awake (request, response) {
 
         let traceTool = null;
@@ -31,9 +39,7 @@ class WebsiteController {
 
         let params = new JsonTool ();
 
-        let websiteModule = new WebsiteModule ();
-
-        let result = await websiteModule.awake (logTool.traceTool, params);
+        let result = await this.websiteModule.awake (logTool.traceTool, params);
 
         await logTool.realize (result);
         await logTool.finalize ();
@@ -51,9 +57,7 @@ class WebsiteController {
 
         let params = new JsonTool ();
 
-        let websiteModule = new WebsiteModule ();
-
-        let result = await websiteModule.landing (logTool.traceTool, params);
+        let result = await this.websiteModule.landing (logTool.traceTool, params);
 
         response.render ('pages/landing/landing.ejs', result.outgoing);
 
@@ -71,9 +75,7 @@ class WebsiteController {
 
         let params = new JsonTool ();
 
-        let websiteModule = new WebsiteModule ();
-
-        let result = await websiteModule.mailing (logTool.traceTool, params);
+        let result = await this.websiteModule.mailing (logTool.traceTool, params);
 
         response.render ('pages/mailing/mailing.ejs', result.outgoing);
 
@@ -111,9 +113,7 @@ class WebsiteController {
 
         params.add ('txt_first_name', request.params.txt_first_name);
 
-        let websiteModule = new WebsiteModule ();
-
-        let result = await websiteModule.staff (logTool.traceTool, params);
+        let result = await this.websiteModule.staff (logTool.traceTool, params);
 
         response.render ('pages/staff/staff.ejs', result.outgoing);
 
@@ -197,9 +197,7 @@ class WebsiteController {
 
         params.add ('txt_first_name', request.params.txt_first_name);
 
-        let websiteModule = new WebsiteModule ();
-
-        let result = await websiteModule.vcard (logTool.traceTool, params);
+        let result = await this.websiteModule.vcard (logTool.traceTool, params);
 
         response.setHeader ('content-type', 'text/x-vcard');
         response.send (result.outgoing.txt_vcard);
